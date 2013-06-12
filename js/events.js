@@ -1,4 +1,4 @@
-var backendUrl = 'http://shidur.bbdomain/tm';
+var backendUrl = 'http://shidur.bbdomain:9292';
 var updateInterval = 2500;
 
 var allEvents = [];
