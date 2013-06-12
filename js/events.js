@@ -28,7 +28,7 @@ function redrawEventsTable() {
     var tbody = $('#events').find('tbody');
     tbody.empty();
     $.each(allEvents, function(i, e) {
-        tbody.append('<tr><td>' + e.id + '</td><td>' + e.name +
+        tbody.append('<tr><td>' + e.name +
             '</td><td id="event_state_' + e.id + '">refreshing...</td>' +
             '<td><button id="event_start_' + e.id + '" class="btn btn-success" ' +
             'onclick="javascript:callEventAction(' + e.id + ',\'start\');">' +
