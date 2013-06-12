@@ -1,6 +1,4 @@
-// var backendUrl = 'http://localhost:9292';
-var backendUrl = 'http://shidur.bbdomain:9292';
-
+var backendUrl = 'http://shidur.bbdomain/tm';
 var updateInterval = 2500;
 
 var cpuPlotOptions = {
@@ -35,7 +33,7 @@ function loadTranscoders() {
 			});
 		},
 		error: function (responseData, textStatus, errorThrown) {
-		    alert('loadTranscoders failed: ' + errorThrown );
+		    alert('loadEvents failed: ' + errorThrown );
 		}
 	});
 }

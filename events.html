@@ -28,40 +28,29 @@
         <![endif]-->
 
         <div class="container">
-
             <div class="row">
-	        	<h1>Transcoders</h1>
-				<table id="txcoders" class="table table-bordered"></table>
+	        	<h1>BB Broadcast programs</h1>
             </div>
-			<div class="row">
-                <h1>Monitoring</h1>
-				<label>Monitoring period
-                    <select id="monitor-period">
-                        <option value="10_minutes">last 10 minutes</option>
-                        <option value="hour" selected="selected">last hour</option>
-                        <option value="day">last 24 hours</option>
-                        <option value="week">last week</option>
-                    </select>
-                </label>
-			</div>
-			<div class="row">
-				<div class="span6">
-					<h3>CPU load</h3>
-					<div id="cpu-load-plots"></div>
-				</div>
-				<div class="span6">
-					<h3>Temperature</h3>
-					<div id="temperature-plots"></div>
-				</div>
-			</div>
+            <div class="row">
+				<table id="events" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+				</table>
+            </div>
         </div> <!-- /container -->
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/jquery.flot.js"></script>
         <script src="js/vendor/jquery.flot.time.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/events.js"></script>
     </body>
 </html>

@@ -1,9 +1,8 @@
-var backendUrl = 'http://shidur.bbdomain:9292';
-var slots = [];
-var txcoder = null;
-
+var backendUrl = 'http://shidur.bbdomain/tm';
 var updateInterval = 1000;
 
+var slots = [];
+var txcoder = null;
 
 function loadTranscoder(tx_id) {
     $.ajax({
