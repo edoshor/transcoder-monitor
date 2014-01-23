@@ -1,4 +1,4 @@
-var backendUrl = 'http://shidur.bbdomain:9292';
+var backendUrl = 'http://shidur.bbdomain/tm';
 var updateInterval = 1000;
 
 var slots = [];
@@ -8,7 +8,6 @@ function loadTranscoder(tx_id) {
     $.ajax({
 		type: 'GET',
 		url: backendUrl + '/transcoders/' + tx_id,
-		crossDomain: true,
 		dataType: 'json',
 		success: function(responseData, textStatus, jqXHR) {
 	   		txcoder = responseData;
@@ -23,7 +22,6 @@ function loadSlots(tx_id) {
     $.ajax({
 		type: 'GET',
 		url: backendUrl + '/transcoders/' + tx_id + '/slots',
-		crossDomain: true,
 		dataType: 'json',
 		success: function(responseData, textStatus, jqXHR) {
 	   		slots = responseData;
@@ -52,7 +50,6 @@ function refreshSlotsStatus() {
 		$.ajax({
 		type: 'GET',
 		url: slotActionUrl(txcoder.id, slot.id) + 'status',
-		crossDomain: true,
 		dataType: 'json',
 		success: function(responseData, textStatus, jqXHR) {
 			var statusHtml = 'Stopped';

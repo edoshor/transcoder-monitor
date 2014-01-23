@@ -1,4 +1,4 @@
-var backendUrl = 'http://shidur.bbdomain:9292';
+var backendUrl = 'http://shidur.bbdomain/tm';
 var updateInterval = 2500;
 
 var cpuPlotOptions = {
@@ -19,7 +19,6 @@ function loadTranscoders() {
     $.ajax({
 		type: 'GET',
 		url: backendUrl + '/transcoders',
-		crossDomain: true,
 		dataType: 'json',
 		success: function(responseData, textStatus, jqXHR) {
             $('#txcoders').empty().append('<tr><th>Id</th><th>Name</th><th>Address</th></tr>')
@@ -78,7 +77,6 @@ function updateCpuData(tx_id) {
   	$.ajax({
 		type: 'GET',
 		url: backendUrl + '/monitor/' + tx_id + '/cpu?period=' + monitorPeriod(),
-		crossDomain: true,
 		dataType: 'json',
 		success: function (responseData, textStatus, jqXHR) {
 			var plot = $('#cpu-plot-' + tx_id).data('plot');
@@ -97,7 +95,6 @@ function updateTemperatureData(tx_id) {
   	$.ajax({
 		type: 'GET',
 		url: backendUrl + '/monitor/' + tx_id + '/temp?period=' + monitorPeriod(),
-		crossDomain: true,
 		dataType: 'json',
 		success: function (responseData, textStatus, jqXHR) {
 			var seriesData = [];

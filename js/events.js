@@ -1,4 +1,4 @@
-var backendUrl = 'http://shidur.bbdomain:9292';
+var backendUrl = 'http://shidur.bbdomain/tm';
 var updateInterval = 2500;
 
 var allEvents = [];
@@ -11,7 +11,6 @@ function loadEvents() {
     $.ajax({
 		type: 'GET',
 		url: backendUrl + '/events',
-		crossDomain: true,
 		dataType: 'json',
 		success: function(responseData, textStatus, jqXHR) {
             allEvents = responseData;
@@ -48,7 +47,6 @@ function refreshEventsState() {
         $.ajax({
             type: 'GET',
             url: backendUrl + '/events/' + e.id + '/status',
-            crossDomain: true,
             dataType: 'json',
             success: function (responseData, textStatus, jqXHR) {
                 var state;
