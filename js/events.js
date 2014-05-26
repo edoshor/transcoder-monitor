@@ -1,3 +1,4 @@
+//var backendUrl = 'http://localhost/tm';
 var backendUrl = 'http://shidur.bbdomain/tm';
 var updateInterval = 2500;
 
@@ -29,12 +30,15 @@ function redrawEventsTable() {
     $.each(allEvents, function(i, e) {
         tbody.append('<tr><td>' + e.name +
             '</td><td id="event_state_' + e.id + '">refreshing...</td>' +
-            '<td><button id="event_start_' + e.id + '" class="btn btn-success" ' +
-            'onclick="javascript:callEventAction(' + e.id + ',\'start\');">' +
-            '<i class="icon-align-left icon-play"></i>Start</button>' +
-            '<button id="event_stop_' + e.id + '" class="btn btn-danger" ' +
-            'onclick="javascript:callEventAction(' + e.id + ',\'stop\');">' +
-            '<i class="icon-align-left icon-stop"></i>Stop</button>' +
+            '<td><button id="event_off_' + e.id + '" class="btn btn-danger" ' +
+            'onclick="javascript:callEventAction(' + e.id + ',\'off\');">' +
+            '<i class="icon-align-left icon-stop"></i>Off</button>&nbsp;&nbsp;' +
+            '<button id="event_ready_' + e.id + '" class="btn btn-info" ' +
+            'onclick="javascript:callEventAction(' + e.id + ',\'ready\');">' +
+            '<i class="icon-align-left icon-check"></i>Ready</button>&nbsp;&nbsp;' +
+            '<button id="event_on_' + e.id + '" class="btn btn-success" ' +
+            'onclick="javascript:callEventAction(' + e.id + ',\'on\');">' +
+            '<i class="icon-align-left icon-play"></i>On</button>' +
             '</td><tr>');
     });
 }
@@ -50,18 +54,25 @@ function refreshEventsState() {
             dataType: 'json',
             success: function (responseData, textStatus, jqXHR) {
                 var state;
-                if (responseData.running) {
-                    state = 'Running ' + responseData.uptime;
-                    $('#event_start_' + e.id).attr('disabled', 'disabled').addClass('disabled');
-                    $('#event_stop_' + e.id).removeAttr('disabled').removeClass('disabled');
-                } else {
-                    state = 'Stopped ';
-                    if (responseData.last_switch) {
-                        state += new Date(responseData.last_switch* 1000);
-                    }
-
-                    $('#event_start_' + e.id).removeAttr('disabled').removeClass('disabled');
-                    $('#event_stop_' + e.id).attr('disabled', 'disabled').addClass('disabled');
+                switch (responseData.state) {
+                    case 'off':
+                        state = 'Off ';
+                        if (responseData.last_switch) {
+                            state += new Date(responseData.last_switch* 1000);
+                        }
+                        $('#event_on_' + e.id).attr('disabled', 'disabled').addClass('disabled');
+                        break;
+                    case 'ready':
+                        state = 'Ready ';
+                        if (responseData.last_switch) {
+                            state += new Date(responseData.last_switch* 1000);
+                        }
+                        $('#event_on_' + e.id).removeAttr('disabled').removeClass('disabled');
+                        break;
+                    case 'on':
+                        state = 'On ' + responseData.uptime;
+                        break;
+                    default: break;
                 }
                 $('#event_state_' + e.id).text(state);
             }
