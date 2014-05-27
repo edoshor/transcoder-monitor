@@ -29,7 +29,7 @@ function redrawEventsTable() {
     tbody.empty();
     $.each(allEvents, function(i, e) {
         tbody.append('<tr><td>' + e.name +
-            '</td><td id="event_state_' + e.id + '">refreshing...</td>' +
+            '</td><td id="event_state_' + e.id + '" class="status">refreshing...</td>' +
             '<td><button id="event_off_' + e.id + '" class="btn btn-danger" ' +
             'onclick="javascript:callEventAction(' + e.id + ',\'off\');">' +
             '<i class="icon-align-left icon-stop"></i>Off</button>&nbsp;&nbsp;' +
@@ -56,25 +56,28 @@ function refreshEventsState() {
                 var state;
                 switch (responseData.state) {
                     case 'off':
-                        state = 'Off ';
+                        state = '<span class="label label-important">Off </span>&nbsp;&nbsp;';
                         if (responseData.last_switch) {
-                            state += new Date(responseData.last_switch* 1000);
+                            state += formatDateTime(new Date(responseData.last_switch* 1000));
                         }
                         $('#event_on_' + e.id).attr('disabled', 'disabled').addClass('disabled');
                         break;
                     case 'ready':
-                        state = 'Ready ';
+                        state = '<span class="label label-info">Ready </span>&nbsp;&nbsp;';
                         if (responseData.last_switch) {
-                            state += new Date(responseData.last_switch* 1000);
+                            state += formatDateTime(new Date(responseData.last_switch* 1000));
                         }
                         $('#event_on_' + e.id).removeAttr('disabled').removeClass('disabled');
                         break;
                     case 'on':
-                        state = 'On ' + responseData.uptime;
+                        state = '<span class="label label-success">On </span>&nbsp;&nbsp;'
+                            + responseData.uptime;
                         break;
-                    default: break;
+                    default:
+                        state = '';
+                        break;
                 }
-                $('#event_state_' + e.id).text(state);
+                $('#event_state_' + e.id).html(state);
             }
         });
 
@@ -84,6 +87,11 @@ function refreshEventsState() {
 function callEventAction(event_id, action) {
     $.get(backendUrl + '/events/' + event_id + '/' + action);
     return false;
+}
+
+function formatDateTime(dt) {
+    return dt.getDate() + '-' + dt.getMonth() + 1 + '-' + dt.getFullYear()
+    + ', ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
 }
 
 // load events on startup
