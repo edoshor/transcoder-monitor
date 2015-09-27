@@ -1,4 +1,4 @@
-var backendUrl = 'http://shidur.bbdomain/tm';
+var backendUrl = 'http://shidur.bbdomain.org/tm';
 var updateInterval = 1000;
 
 var slots = [];
